@@ -897,12 +897,17 @@ class MiaoshouRuntime(object):
                 urls.append((cover_link, f['url'], f['size'], cover_fname, model_fname))
                 break
 
+        c_token = self.prelude.boot_settings['civitai_api']
         for (cover_url, model_url, total_size, local_cover_name, local_model_name) in urls:
             self.downloader_manager.download(
                 source_url=cover_url,
                 target_file=local_cover_name,
                 estimated_total_size=None,
             )
+
+            if len(c_token) > 0:
+                model_url += f"?token={c_token}"
+
             self.downloader_manager.download(
                 source_url=model_url,
                 target_file=local_model_name,
@@ -1200,6 +1205,7 @@ class MiaoshouRuntime(object):
             return gr.TextArea(value=res_prompt)
 
         return gr.TextArea(value=res_prompt)
+        
     def update_gptapi(self, apikey):
         if apikey == '':
             res = 'Please enter a valid API Key'
@@ -1213,6 +1219,18 @@ class MiaoshouRuntime(object):
             value_text = ''
 
         return gr.Markdown(value=res, visible=True), gr.Textbox(placeholder=gpt_hint_text, value=value_text)'''
+
+    def update_civitai_api(self, apikey):
+        if apikey == '':
+            res = 'Please enter a valid API Key'
+            gpt_hint_text = 'Enter you Civitai API Key here, you can get it from https://civitai.com/user/account'
+            value_text = gpt_hint_text
+        else:
+            self.update_boot_setting('civitai_api', apikey)
+            res = 'Civitai API Key updated'
+            value_text = apikey
+
+        return gr.Markdown(value=res, visible=True), gr.Textbox(value=value_text)
 
 
     def update_program(self, dont_update_ms=False):

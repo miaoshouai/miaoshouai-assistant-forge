@@ -1,9 +1,21 @@
 # 喵手助理
 [English](README.md) / [中文](README_CN.md)
 
-喵手助理 [Automatic1111 WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
+喵手助理 [Forge WebUI](https://github.com/lllyasviel/stable-diffusion-webui-forge)
 
-1.81 增加了喵手AI作为模型源，让不能访问C站的人可以通过喵手AI源作为下载站点；增加了部分controlnet模型和官方模型的下载源
+由于 Forge WebUI 已更新至 Gradio 4，MiaoshouAI Assistant 中的许多代码需要为 Forge 进行更新。
+因此，针对 Forge WebUI 创建了一个新版本，以解决与 Gradio 4 的兼容性问题。
+
+#### 此版本的注意事项
+有时可能需要双击两次才能加载下载选项卡中的模型详细信息面板，而在之前的版本中，单击一次即可完成操作。
+
+如果下载模型时出现失败，可能是因为模型作者对该模型设置了登录要求。
+您需要前往 civitai 的[账户设置](https://civitai.com/user/account)页面，申请一个 Civitai API 密钥，并通过 ```Setting & Update``` 选项卡保存该密钥。
+
+### 版本历史
+
+1.90 一个支持 Forge WebUI 的新版本。新增对 Civitai 密钥的支持，并更新了基础模型类型。</br>
+1.81 增加了喵手AI作为模型源，让不能访问C站的人可以通过喵手AI源作为下载站点；增加了部分controlnet模型和官方模型的下载源。</br>
 1.80 修复了webui 1.60中的下载问题；增加了对模型排序，子文件夹下载，模型版本等功能的支持。</br>
 1.70 优化了Civitai的模型文件名关键词搜索，SDXL模型搜索（需要更新数据源），支持tag筛选。修复了在1.6下的模型加载问题。</br>
 1.60 增加了显存自动清理功能。在启动助手中启用后可以在每次生图后自动清理显存。</br>
@@ -17,7 +29,7 @@
 在 Automatic1111 WebUI 中，前往 `扩展插件`-> `从URL安装`，在`扩展插件的git仓库网址`中复制以下地址。
 
 ```sh
-https://github.com/miaoshouai/miaoshouai-assistant.git
+https://github.com/miaoshouai/miaoshouai-assistant-forge.git
 ```
 
 点击`安装`，等待安装完成。然后前往`设置` -> `重新加载界面`

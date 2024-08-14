@@ -15,6 +15,7 @@
         "disable_log_console_output": true,
         "model_source": "miaoshouai.com",
         "my_model_source": "civitai.com",
-        "openai_api": ""
+        "openai_api": "",
+        "civitai_api": ""
     }
 }

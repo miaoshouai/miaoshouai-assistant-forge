@@ -414,14 +414,25 @@ class MiaoShouAssistant(object):
         with gr.TabItem('Setting & Update', elem_id="about_update") as tab_update:
             with gr.Row():
                 md_api_res = gr.Markdown(visible=False)
-            with gr.Row():
+            '''with gr.Row():
                 if self.prelude.boot_settings['openai_api'] == '':
                     display_text = 'Enter you OpenAI API Key here, you can get it from https://platform.openai.com/account/api-keys'
                 else:
                     display_text = self.prelude.boot_settings['openai_api']
                 txt_gptapi = gr.Textbox(label='OpenAI API Key', value=display_text)
-            '''with gr.Row():
+            with gr.Row():
+                btn_update_gptapi = gr.Button(value="Update API Key")
+            with gr.Row():
                 btn_update_gptapi = gr.Button(value="Update API Key")'''
+            with gr.Row():
+                print(self.prelude.boot_settings['civitai_api'])
+                if self.prelude.boot_settings['civitai_api'] == '':
+                    display_text = 'Enter you Civitai API Key here, you can get it from https://civitai.com/user/account'
+                else:
+                    display_text = self.prelude.boot_settings['civitai_api']
+                txt_civitai_api = gr.Textbox(label='Civitai API Key', value=display_text)
+            with gr.Row():
+                btn_civitai_api= gr.Button(value="Save Civitai API Key")
             with gr.Row():
                 txt_update_result = gr.Markdown(visible=False)
             with gr.Row():
@@ -450,6 +461,8 @@ class MiaoShouAssistant(object):
 
             btn_check_update.click(self.runtime.check_update, inputs=[], outputs=[txt_update_result, chk_dont_update_ms, btn_update])
             #btn_update_gptapi.click(self.runtime.update_gptapi, inputs=[txt_gptapi], outputs=[md_api_res, self.txt_main_prompt])
+            btn_civitai_api.click(self.runtime.update_civitai_api, inputs=[txt_civitai_api],
+                                    outputs=[md_api_res, txt_civitai_api])
             btn_update.click(self.runtime.update_program, inputs=[chk_dont_update_ms], outputs=[txt_update_result])
 
     def save_cmdline_args(self, drp_gpu, drp_theme, txt_listen_port, chk_group_args, additional_args):
