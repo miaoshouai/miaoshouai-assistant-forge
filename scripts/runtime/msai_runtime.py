@@ -179,7 +179,7 @@ class MiaoshouRuntime(object):
             self.logger.error(f"ds models is null")
 
     def sort_dataset(self, search='', chk_nsfw=False, base_model=None, model_type='All', model_tag='All',
-                     sort_by='Default') -> t.Dict:
+                     sort_by='Default') -> gr.Dataset:
 
         def sort_key(item, key):
             if key in item['stats']:
@@ -201,7 +201,7 @@ class MiaoshouRuntime(object):
         #self._ds_models.samples = new_list
         return gr.Dataset(samples=new_list)
 
-    def get_images_html(self, search: str = '', chk_nsfw: bool = False, base_model=None, model_type: str = 'All', model_tag: str = 'All') -> t.List[str]:
+    def get_images_html(self, search: str = '', chk_nsfw: bool = False, base_model=None, model_type: str = 'All', model_tag: str = 'All') -> t.List[list[list[str]]]:
         if base_model is None:
             base_model = []
         self.logger.info(f"get_image_html: model_type = {model_type}, and search pattern = '{search}'")
@@ -341,7 +341,7 @@ class MiaoshouRuntime(object):
             return chk_point.sha256[0:10]
 
 
-    def update_my_model_type(self, search_txt, model_type) -> t.Dict:
+    def update_my_model_type(self, search_txt, model_type) -> gr.Dataset:
         my_models = self.get_local_models(search_txt, model_type)
         #self.ds_my_models.samples = my_models
 
@@ -380,7 +380,7 @@ class MiaoshouRuntime(object):
         return models
 
 
-    def refresh_local_models(self, search_txt, model_type) -> t.Dict:
+    def refresh_local_models(self, search_txt, model_type) -> gr.Dataset:
         my_models = self.get_local_models(search_txt, model_type)
         #self.ds_my_models.samples = my_models
 
@@ -522,7 +522,7 @@ class MiaoshouRuntime(object):
 
         return checkgroup
 
-    def set_nsfw(self, search='', nsfw_checker=False, base_model=None, model_type='All', model_tag='All') -> t.Dict:
+    def set_nsfw(self, search='', nsfw_checker=False, base_model=None, model_type='All', model_tag='All') -> gr.Dataset:
         if base_model is None:
             base_model = []
         self._allow_nsfw = nsfw_checker
@@ -536,11 +536,11 @@ class MiaoshouRuntime(object):
 
     def set_basemodel(self, sel_base='All'):
         if sel_base == 'All':
-            return gr.Radio(value=self.prelude.base_model_group)
+            return gr.CheckboxGroup(value=self.prelude.base_model_group)
         else:
-            return gr.Radio(value=[False] * len(self.prelude.base_model_group))
+            return gr.CheckboxGroup(value=[])
 
-    def search_model(self, search='', chk_nsfw=False, base_model=None, model_type='All', model_tag='All') -> t.Dict:
+    def search_model(self, search='', chk_nsfw=False, base_model=None, model_type='All', model_tag='All') -> gr.Dataset:
         if self._ds_models is None:
             self.logger.error(f"_ds_models is not initialized")
             return {}
@@ -550,7 +550,7 @@ class MiaoshouRuntime(object):
         #self._ds_models.samples = new_list
         return gr.Dataset(samples=new_list)
 
-    def search_my_model(self, search_txt='', model_type='Checkpoint') -> t.Dict:
+    def search_my_model(self, search_txt='', model_type='Checkpoint') -> gr.Dataset:
         if self._ds_models is None:
             self.logger.error(f"_ds_models is not initialized")
             return {}

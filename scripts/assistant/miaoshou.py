@@ -421,11 +421,8 @@ class MiaoShouAssistant(object):
                     display_text = self.prelude.boot_settings['openai_api']
                 txt_gptapi = gr.Textbox(label='OpenAI API Key', value=display_text)
             with gr.Row():
-                btn_update_gptapi = gr.Button(value="Update API Key")
-            with gr.Row():
                 btn_update_gptapi = gr.Button(value="Update API Key")'''
             with gr.Row():
-                print(self.prelude.boot_settings['civitai_api'])
                 if self.prelude.boot_settings['civitai_api'] == '':
                     display_text = 'Enter you Civitai API Key here, you can get it from https://civitai.com/user/account'
                 else:
